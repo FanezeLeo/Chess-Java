@@ -1,3 +1,6 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class UI {
 
     public static final String ANSI_RESET = "\u001B[0m";
@@ -27,7 +30,19 @@ public class UI {
             }
             System.out.println();
         }
-        System.out.println("  a b c d e f g h");
+        System.out.print("  a b c d e f g h");
+    }
+
+    public static ChessPosition redChessPosition(Scanner in){
+        try{    
+            String s = in.nextLine();
+            char column = s.charAt(0);
+            int row = Integer.parseInt(s.substring(1));
+            return new ChessPosition(column, row);
+        } catch(RuntimeException e){
+            throw new InputMismatchException("Erro ao ler a posição");
+        }
+
     }
 
     private static void printPiece(ChessPiece piece){
@@ -40,6 +55,6 @@ public class UI {
                 System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
             }
         }
-        System.out.println(" ");
+        System.out.print(" ");
     }
 }
